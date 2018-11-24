@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Custom Elements Built-in Extends</title>
+  <script>this.customElements||document.write('<script src="https://unpkg.com/document-register-element"><\x2fscript>');</script>
+  <script src="../min.js"></script>
+  <script defer src="./my-button.js"></script>
+</head>
+<body>
+  <button color="blue" is="my-button">
+    built in extend
+  </button>
+</body>
+</html>

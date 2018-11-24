@@ -1,0 +1,34 @@
+{
+  "name": "@ungap/custom-elements-builtin",
+  "version": "0.0.0",
+  "description": "A polyfill for Custom Elements builtin extends",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "unpkg": "min.js",
+  "scripts": {
+    "build": "npm run cjs && npm run esm && npm run min && npm run test && npm run size",
+    "cjs": "cp index.js cjs/",
+    "esm": "cp index.js esm/",
+    "min": "uglifyjs index.js --support-ie8 --comments=/^!/ -c -m -o min.js",
+    "size": "cat index.js | wc -c && cat min.js | wc -c && gzip -c9 min.js | wc -c && cat min.js | brotli | wc -c"
+  },
+  "keywords": [
+    "customElements",
+    "builtin",
+    "polyfill",
+    "ungap"
+  ],
+  "author": "Andrea Giammarchi",
+  "license": "ISC",
+  "devDependencies": {
+    "uglify-js": "^2.8.29"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ungap/custom-elements-builtin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ungap/custom-elements-builtin/issues"
+  },
+  "homepage": "https://github.com/ungap/custom-elements-builtin#readme"
+}
