@@ -180,4 +180,4 @@
         setup(nodes[i]);
     }
   }
-}(document, customElements, HTMLLIElement, Object));
+}(document, customElements, Object));

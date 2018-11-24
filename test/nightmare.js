@@ -2,7 +2,7 @@ const Nightmare = require('nightmare');
 const nightmare = Nightmare({show: false});
 
 nightmare
-  .goto(`http://localhost:8080/`)
+  .goto(`http://localhost:8080/test/`)
   .evaluate(() => {
     window.assert = (ok, message) =>
       console.warn('nightmare', !!ok, message || 'unknown');

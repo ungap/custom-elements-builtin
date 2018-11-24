@@ -1,6 +1,6 @@
 # Custom Elements with Builtin Extends
 
-[![Build Status](https://travis-ci.com/ungap/custom-elements-builtin.svg?branch=master)](https://travis-ci.com/ungap/custom-elements-builtin) [![Coverage Status](https://coveralls.io/repos/github/ungap/custom-elements-builtin/badge.svg?branch=master)](https://coveralls.io/github/ungap/custom-elements-builtin?branch=master) ![WebReflection status](https://offline.report/status/webreflection.svg)
+[![Build Status](https://travis-ci.com/ungap/custom-elements-builtin.svg?branch=master)](https://travis-ci.com/ungap/custom-elements-builtin) ![WebReflection status](https://offline.report/status/webreflection.svg)
 
 Brings builtin extends to browsers that already have `customElements` (i.e. Safari).
 

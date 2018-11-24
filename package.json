@@ -10,7 +10,11 @@
     "cjs": "cp index.js cjs/",
     "esm": "cp index.js esm/",
     "min": "uglifyjs index.js --support-ie8 --comments=/^!/ -c -m -o min.js",
-    "size": "cat index.js | wc -c && cat min.js | wc -c && gzip -c9 min.js | wc -c && cat min.js | brotli | wc -c"
+    "size": "cat index.js | wc -c && cat min.js | wc -c && gzip -c9 min.js | wc -c && cat min.js | brotli | wc -c",
+    "test": "npm run server & (sleep 1 && npm run nightmare && npm run kill)",
+    "nightmare": "node test/nightmare.js || (npm run kill && exit 1)",
+    "server": "node -e 'require(`fs`).writeFileSync(`pid`,require(`child_process`).spawn(`http-server`,[`.`,`-s`]).pid);'",
+    "kill": "kill -9 $(cat pid) && rm -f pid"
   },
   "keywords": [
     "customElements",
@@ -21,6 +25,8 @@
   "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
+    "http-server": "^0.11.1",
+    "nightmare": "^3.0.1",
     "uglify-js": "^2.8.29"
   },
   "repository": {
