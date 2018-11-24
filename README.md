@@ -37,3 +37,37 @@ customElements.define(
   * CJS via `const iterator = require('@ungap/custom-elements-builtin')`
 
 [Live test](https://ungap.github.io/custom-elements-builtin/test/)
+
+## Constructor Caveat
+
+You cannot use the `constructor` in any meaningful way if you want to ensure API consistency.
+
+Create new elements via `document.createElement('button', {is: 'my-button'})` but do not use `new MyButton` or incompatible browsers will throw right away because they made `HTMLButtonElement` and all others not usable as classes.
+
+If you need a reliable entry point to setup your custom builtins use the `connectedCallback` method instead of the `constructor` so you're also sure all attributes are eventually already known and you'll have full control.
+
+Alternatively, use a `WeakSet` to optionally invoke a setup.
+
+```js
+const initialized = new WeakSet;
+const setup = node => {
+  initialized.add(node);
+  node.live = true;
+};
+class MyButton extends HTMLButtonElement {
+  connectedCallback() {
+    if (!initialized.has(this))
+      setup(this);
+    // anything else
+  }
+}
+```
+
+You can do the same at the beginning of `attributeChangedCallback`.
+
+### Compatible with ...
+
+Any engine that supports genuine ES2015 syntax and the following features:
+
+  * global `MutationObserver`, `customElements`, and `Promise`
+  * `assign`, `create`, `defineProperties`, and `setPrototypeOf` from the `Object`
