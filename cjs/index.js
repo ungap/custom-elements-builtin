@@ -1,7 +1,7 @@
 /*! (c) Andrea Giammarchi - ISC */
 (function (document, customElements, Object) {
   'use strict';
-  if (customElements.get('ungap-li'))
+  if (customElements.get('ungap-li') || typeof Reflect == typeof EXTENDS)
     return;
   var EXTENDS = 'extends';
   try {
