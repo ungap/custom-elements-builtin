@@ -6,6 +6,7 @@
   "module": "esm/index.js",
   "unpkg": "min.js",
   "scripts": {
+    "babel": "babel --presets=@babel/preset-env test/my-button.js > test/es5/my-button.js",
     "build": "npm run cjs && npm run esm && npm run min && npm run test && npm run size",
     "cjs": "cp index.js cjs/",
     "esm": "cp index.js esm/",
@@ -25,6 +26,9 @@
   "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
     "http-server": "^0.11.1",
     "nightmare": "^3.0.1",
     "uglify-js": "^2.8.29"

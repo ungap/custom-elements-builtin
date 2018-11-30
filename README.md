@@ -36,7 +36,8 @@ customElements.define(
   * ESM via `import iterator from '@ungap/custom-elements-builtin'`
   * CJS via `const iterator = require('@ungap/custom-elements-builtin')`
 
-[Live test](https://ungap.github.io/custom-elements-builtin/test/)
+[Live ES2015 test](https://ungap.github.io/custom-elements-builtin/test/)
+[Live ES5 test](https://ungap.github.io/custom-elements-builtin/test/es5/)
 
 ## Constructor Caveat
 
