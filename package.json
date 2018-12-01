@@ -31,7 +31,7 @@
     "@babel/preset-env": "^7.1.6",
     "http-server": "^0.11.1",
     "nightmare": "^3.0.1",
-    "uglify-js": "^2.8.29"
+    "uglify-js": "^3.4.9"
   },
   "repository": {
     "type": "git",
