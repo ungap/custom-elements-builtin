@@ -44,20 +44,8 @@
         document,
         {childList: true, subtree: true}
       );
-      var cloneNode = Node.prototype.cloneNode;
-      defineProperties(
-        Node.prototype,
-        {
-          cloneNode: {
-            value: function () {
-              var result = cloneNode.apply(this, arguments);
-              if (result.nodeType === 1)
-                setupSubNodes(result.content || result, setupIfNeeded);
-              return result;
-            }
-          }
-        }
-      );
+      wrapOriginal(Document.prototype, 'importNode');
+      wrapOriginal(Node.prototype, 'cloneNode');
       defineProperties(
         customElements,
         {
@@ -225,6 +213,19 @@
         var nodes = node.querySelectorAll('[is]');
         for (var i = 0, length = nodes.length; i < length; i++)
           setup(nodes[i]);
+      }
+      function wrapOriginal(prototype, name) {
+        var method = prototype[name];
+        var desc = {};
+        desc[name] = {
+          value: function () {
+            var result = method.apply(this, arguments);
+            if (result.nodeType === 1)
+              setupSubNodes(result.content || result, setupIfNeeded);
+            return result;
+          }
+        };
+        defineProperties(prototype, desc);
       }
     }());
   }
