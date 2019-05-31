@@ -128,7 +128,7 @@
             get: innerHTML.get,
             set: function (HTML) {
               innerHTML.set.call(this, HTML);
-              if (/\bis=("|')?[a-z0-9_-]\1/i.test(HTML))
+              if (/\bis=("|')?[a-z0-9_-]+\1/i.test(HTML))
                 setupSubNodes(this.content || this, setupIfNeeded);
             }
           }
