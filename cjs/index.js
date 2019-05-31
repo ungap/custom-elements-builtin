@@ -165,7 +165,7 @@
           lifeCycle.get(node) !== DISCONNECTED_CALLBACK
         ) {
           lifeCycle.set(node, DISCONNECTED_CALLBACK);
-          node[DISCONNECTED_CALLBACK]();
+          Promise.resolve(node).then(invokeDisconnectedCallback);
         }
         setupSubNodes(node, disconnectIfNeeded);
       }
@@ -177,6 +177,12 @@
             return registry[is];
         }
         return null;
+      }
+      function invokeConnectedCallback(node) {
+        node[CONNECTED_CALLBACK]();
+      }
+      function invokeDisconnectedCallback(node) {
+        node[DISCONNECTED_CALLBACK]();
       }
       function setup(node, info) {
         var Class = info.Class;
@@ -210,7 +216,7 @@
             lifeCycle.get(node) !== CONNECTED_CALLBACK
           ) {
             lifeCycle.set(node, CONNECTED_CALLBACK);
-            node[CONNECTED_CALLBACK]();
+            Promise.resolve(node).then(invokeConnectedCallback);
           }
         }
         setupSubNodes(node, setupIfNeeded);
