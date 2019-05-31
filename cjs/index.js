@@ -51,7 +51,8 @@
           cloneNode: {
             value: function () {
               var result = cloneNode.apply(this, arguments);
-              setupSubNodes(result.content || result, setupIfNeeded);
+              if (result.nodeType === 1)
+                setupSubNodes(result.content || result, setupIfNeeded);
               return result;
             }
           }
