@@ -13,7 +13,10 @@
       'a-table',
       class extends HTMLTableElement {
         connectedCallback() {
-          console.log(this.nodeName);
+          console.log('connected', this.nodeName);
+        }
+        disconnectedCallback() {
+          console.log('disconnected', this.nodeName);
         }
       },
       {extends: 'table'}
@@ -22,19 +25,27 @@
       'a-tr',
       class extends HTMLTableRowElement {
         connectedCallback() {
-          console.log(this.nodeName);
+          console.log('connected', this.nodeName);
+        }
+        disconnectedCallback() {
+          console.log('disconnected', this.nodeName);
         }
       },
       {extends: 'tr'}
     );
-    const div = document.createElement('div');
-    div.innerHTML = `
-    <table is="a-table">
-      <tr is="a-tr"><td>3</td></tr>
-      <tr is="a-tr"><td>4</td></tr>
-    </table>
-    `;
-    document.body.appendChild(div);
+    setTimeout(function () {
+      const div = document.createElement('div');
+      div.innerHTML = `
+      <table is="a-table">
+        <tr is="a-tr"><td>3</td></tr>
+        <tr is="a-tr"><td>4</td></tr>
+      </table>
+      `;
+      document.body.appendChild(div);
+      setTimeout(function () {
+        document.body.removeChild(div);
+      }, 1000);
+    }, 1000);
   };
   </script>
 </head>

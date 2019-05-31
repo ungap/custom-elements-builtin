@@ -67,13 +67,6 @@ class MyButton extends HTMLButtonElement {
 
 You can do the same at the beginning of `attributeChangedCallback`.
 
-## Accessors Caveat
-
-If you create custom elements via `template` nodes or `innerHTML`, their accessors might not be available until the upgrade happens.
-
-This is usually not an issue with server side rendered content, but it is easily an issue with _hyperHTML_, _lighterhtml_, or other template literal based projects, 'cause these expect nodes to be fully upgraded the moment these nodes are accessed.
-
-
 ### Compatible with ...
 
 Any engine that supports genuine ES2015 syntax and the following features:
