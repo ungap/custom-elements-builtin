@@ -220,8 +220,11 @@
         desc[name] = {
           value: function () {
             var result = method.apply(this, arguments);
-            if (result.nodeType === 1)
-              setupSubNodes(result.content || result, setupIfNeeded);
+            switch (result.nodeType) {
+              case 1:
+              case 11:
+                setupSubNodes(result.content || result, setupIfNeeded);
+            }
             return result;
           }
         };
