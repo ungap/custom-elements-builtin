@@ -40,6 +40,26 @@ customElements.define(
 
 [Live ES5 test](https://ungap.github.io/custom-elements-builtin/test/es5/)
 
+
+## All Possible Features Detections
+
+This is all it takes to have all the right polyfills in place.
+
+```html
+<script> // for legacy browsers only, modern browsers untouched
+this.customElements||document.write('<script src="//unpkg.com/document-register-element"><'+'/script>')
+</script>
+<script> // for browsers that forgot (...) to implement built-in extends
+try{customElements.define('built-in',document.createElement('p').constructor,{'extends':'p'})}
+catch(_){document.write('<script src="//unpkg.com/@ungap/custom-elements-builtin@0.2.5/min.js"><'+'/script>')}
+</script>
+<script>
+// everything else that needs a reliable customElements global
+// with built-in extends capabilities
+</script>
+```
+
+
 ## Constructor Caveat
 
 You cannot use the `constructor` in any meaningful way if you want to ensure API consistency.
