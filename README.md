@@ -46,17 +46,29 @@ customElements.define(
 This is all it takes to have all the right polyfills in place.
 
 ```html
-<script> // for legacy browsers only, modern browsers untouched
-this.customElements||document.write('<script src="//unpkg.com/document-register-element"><'+'/script>')
-</script>
-<script> // for browsers that forgot (...) to implement built-in extends
-try{customElements.define('built-in',document.createElement('p').constructor,{'extends':'p'})}
-catch(_){document.write('<script src="//unpkg.com/@ungap/custom-elements-builtin@0.2.5/min.js"><'+'/script>')}
+<script>
+if (this.customElements) {
+  try {
+    // feature detect browsers that "forgot" 🙄 to implement built-in extends
+    customElements.define('built-in', document.createElement('p').constructor, {'extends':'p'});
+  } catch(_) {
+    document.write('<script src="//unpkg.com/@ungap/custom-elements-builtin"><'+'/script>');
+  }
+} else {
+  // legacy browsers only
+  document.write('<script src="//unpkg.com/document-register-element"><'+'/script>');
+}
 </script>
 <script>
 // everything else that needs a reliable customElements global
 // with built-in extends capabilities
 </script>
+```
+
+The minified version <sup><sub>( 189 bytes gzipped )</sub></sup>
+
+```html
+<script>if(this.customElements)try{customElements.define('built-in',document.createElement('p').constructor,{'extends':'p'})}catch(a){document.write('<script src="//unpkg.com/@ungap/custom-elements-builtin"><'+'/script>')}else document.write('<script src="//unpkg.com/document-register-element"><'+'/script>');</script>
 ```
 
 
