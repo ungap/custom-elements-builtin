@@ -52,11 +52,14 @@ if (this.customElements) {
     // feature detect browsers that "forgot" 🙄 to implement built-in extends
     customElements.define('built-in', document.createElement('p').constructor, {'extends':'p'});
   } catch(_) {
-    document.write('<script src="//unpkg.com/@ungap/custom-elements-builtin"><'+'/script>');
+    // look mum, no document.write here!
+    document.head.appendChild(
+      document.createElement('script')
+    ).src='https://unpkg.com/@ungap/custom-elements-builtin';
   }
 } else {
-  // legacy browsers only
-  document.write('<script src="//unpkg.com/document-register-element"><'+'/script>');
+  // legacy browsers only, they document.write pretty well
+  document.write('<script src="//unpkg.com/document-register-element"><\x2fscript>');
 }
 </script>
 <script>
@@ -65,10 +68,16 @@ if (this.customElements) {
 </script>
 ```
 
-The minified version <sup><sub>( 189 bytes gzipped )</sub></sup>
+The, still readable, but minified version is here:
 
 ```html
-<script>if(this.customElements)try{customElements.define('built-in',document.createElement('p').constructor,{'extends':'p'})}catch(a){document.write('<script src="//unpkg.com/@ungap/custom-elements-builtin"><'+'/script>')}else document.write('<script src="//unpkg.com/document-register-element"><'+'/script>');</script>
+<script>
+if(this.customElements)
+  try{customElements.define('built-in',document.createElement('p').constructor,{'extends':'p'})}
+  catch(s){document.head.appendChild(document.createElement('script')).src='https://unpkg.com/@ungap/custom-elements-builtin'}
+else
+  document.write('<script src="https://unpkg.com/document-register-element"><\x2fscript>');
+</script>
 ```
 
 
