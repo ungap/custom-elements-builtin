@@ -52,19 +52,18 @@ if (this.customElements) {
     // feature detect browsers that "forgot" 🙄 to implement built-in extends
     customElements.define('built-in', document.createElement('p').constructor, {'extends':'p'});
   } catch(_) {
-    // look mum, no document.write here!
-    document.head.appendChild(
-      document.createElement('script')
-    ).src='https://unpkg.com/@ungap/custom-elements-builtin';
+    // only WebKit or Safari
+    document.write('<script src="//unpkg.com/@ungap/custom-elements-builtin"><\x2fscript>');
   }
 } else {
-  // legacy browsers only, they document.write pretty well
+  // only legacy browsers
   document.write('<script src="//unpkg.com/document-register-element"><\x2fscript>');
 }
 </script>
 <script>
 // everything else that needs a reliable customElements global
 // with built-in extends capabilities
+// Note: it's important it's one <script> tag after the previous one!
 </script>
 ```
 
@@ -74,9 +73,21 @@ The, still readable, but minified version is here:
 <script>
 if(this.customElements)
   try{customElements.define('built-in',document.createElement('p').constructor,{'extends':'p'})}
-  catch(s){document.head.appendChild(document.createElement('script')).src='https://unpkg.com/@ungap/custom-elements-builtin'}
+  catch(s){document.write('<script src="//unpkg.com/@ungap/custom-elements-builtin"><\x2fscript>')}
 else
-  document.write('<script src="https://unpkg.com/document-register-element"><\x2fscript>');
+  document.write('<script src="//unpkg.com/document-register-element"><\x2fscript>');
+</script>
+```
+
+If for some reason your server / header has issues in sending `<script>` content:
+
+```html
+<script>
+if(this.customElements)
+  try{customElements.define('built-in',document.createElement('p').constructor,{'extends':'p'})}
+  catch(s){document.write(unescape('%3Cscript%20src%3D%22https%3A//unpkg.com/@ungap/custom-elements-builtin%22%3E%3C/script%3E'))}
+else
+  document.write(unescape('%3Cscript%20src%3D%22https%3A//unpkg.com/document-register-element%22%3E%3C/script%3E'));
 </script>
 ```
 
