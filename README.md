@@ -94,7 +94,7 @@ else
 
 ## Constructor Caveat
 
-You cannot use the `constructor` in any meaningful way if you want to ensure API consistency.
+You cannot use the `constructor` in any meaningful way if you want to ensure API consistency, **including setting properties**, which means you cannot also use `prop = value` within the class declaration, as it's not possible to reflect those, same as it's not possible to use a constructor.
 
 Create new elements via `document.createElement('button', {is: 'my-button'})` but do not use `new MyButton` or incompatible browsers will throw right away because they made `HTMLButtonElement` and all others not usable as classes.
 
