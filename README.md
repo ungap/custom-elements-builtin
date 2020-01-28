@@ -6,6 +6,8 @@ Brings builtin extends to browsers that already have `customElements` (i.e. Safa
 
 See [document-register-element](https://github.com/WebReflection/document-register-element) to polyfill upfront all other legacy browsers too.
 
+Please don't file any bug until you've read the [Constructor Caveat](https://github.com/ungap/custom-elements-builtin#constructor-caveat) section, and be sure you use [features detection](https://github.com/ungap/custom-elements-builtin#all-possible-features-detections) to bring in this polyfill only where needed.
+
 ```js
 customElements.define(
   'my-button',
@@ -96,7 +98,7 @@ else
 
 You cannot use the `constructor` in any meaningful way if you want to ensure API consistency, **including setting properties**, which means you cannot also use `prop = value` within the class declaration, as it's not possible to reflect those, same as it's not possible to use a constructor.
 
-Create new elements via `document.createElement('button', {is: 'my-button'})` but do not use `new MyButton` or incompatible browsers will throw right away because they made `HTMLButtonElement` and all others not usable as classes.
+Create new elements via `document.createElement('button', {is: 'my-button'})` but **do not use** `new MyButton` or incompatible browsers will throw right away because they made `HTMLButtonElement` and all others not usable as classes.
 
 If you need a reliable entry point to setup your custom builtins use the `connectedCallback` method instead of the `constructor` so you're also sure all attributes are eventually already known and you'll have full control.
 
