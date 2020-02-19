@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../index.js"></script>
+  <script>
+  class MyApp extends HTMLElement {
+    connectedCallback() {
+      this.attachShadow({ mode: 'open' });
+      this.shadowRoot.innerHTML = `
+        <p>Hello, the input has no value in WebKit</p>
+        <input is="my-input" />
+        <button is="my-button">Test</button>
+      `
+    }
+  }
+  customElements.define('my-app', MyApp);
+
+  class RootApp extends MyApp {
+    connectedCallback() {
+      this.innerHTML = `
+        <p>Hello, the input has a value in WebKit</p>
+        <input is="my-input" />
+        <button is="my-button">Test</button>
+      `
+    }
+  }
+
+  customElements.define('root-app', RootApp);
+
+  class MyInput extends HTMLInputElement {
+    connectedCallback() {
+      this.value = 'Hello!';
+    }
+  }
+
+  customElements.define('my-input', MyInput, {extends: 'input'});
+
+  class MyButton extends HTMLButtonElement {
+    connectedCallback() {
+      this.innerText = 'Hola';
+    }
+  }
+
+  customElements.define('my-button', MyButton, {extends: 'button'});
+  </script>
+</head>
+<body>
+  <my-app></my-app>
+  <root-app></root-app>
+</body>
+</html>

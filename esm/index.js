@@ -14,15 +14,17 @@
     LI.prototype = Object.create(HtmlLI.prototype);
     customElements.define('ungap-li', LI, desc);
     if (!/is="ungap-li"/.test((new LI).outerHTML))
-      throw {};
+      throw desc;
   } catch (o_O) {
     (function() {
       var ATTRIBUTE_CHANGED_CALLBACK = 'attributeChangedCallback';
       var CONNECTED_CALLBACK = 'connectedCallback';
       var DISCONNECTED_CALLBACK = 'disconnectedCallback';
+      var ElemProto = Element.prototype;
       var assign = Object.assign;
       var create = Object.create;
       var defineProperties = Object.defineProperties;
+      var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
       var setPrototypeOf = Object.setPrototypeOf;
       var define = customElements.define;
       var get = customElements.get;
@@ -30,20 +32,8 @@
       var whenDefined = customElements.whenDefined;
       var registry = create(null);
       var lifeCycle = new WeakMap;
-      new MutationObserver(function (changes) {
-        for (var i = 0, length = changes.length; i < length; i++) {
-          var change = changes[i];
-          var addedNodes = change.addedNodes;
-          var removedNodes = change.removedNodes;
-          for (var j = 0, len = addedNodes.length; j < len; j++)
-            setupIfNeeded(addedNodes[j]);
-          for (var j = 0, len = removedNodes.length; j < len; j++)
-            disconnectIfNeeded(removedNodes[j]);
-        }
-      }).observe(
-        document,
-        {childList: true, subtree: true}
-      );
+      var changesOptions = {childList: true, subtree: true};
+      new MutationObserver(DOMChanges).observe(document, changesOptions);
       wrapOriginal(Document.prototype, 'importNode');
       wrapOriginal(Node.prototype, 'cloneNode');
       defineProperties(
@@ -105,13 +95,18 @@
           }
         }
       );
-      var innerHTML = Object.getOwnPropertyDescriptor(
-        Element.prototype,
-        'innerHTML'
-      );
+      var attach = getOwnPropertyDescriptor(ElemProto, 'attachShadow').value;
+      var innerHTML = getOwnPropertyDescriptor(ElemProto, 'innerHTML');
       defineProperties(
-        Element.prototype,
+        ElemProto,
         {
+          attachShadow: {
+            value: function () {
+              var root = attach.apply(this, arguments);
+              new MutationObserver(DOMChanges).observe(root, changesOptions);
+              return root;
+            }
+          },
           innerHTML: {
             get: innerHTML.get,
             set: function (HTML) {
@@ -122,6 +117,17 @@
           }
         }
       );
+      function DOMChanges(changes) {
+        for (var i = 0, length = changes.length; i < length; i++) {
+          var change = changes[i];
+          var addedNodes = change.addedNodes;
+          var removedNodes = change.removedNodes;
+          for (var j = 0, len = addedNodes.length; j < len; j++)
+            setupIfNeeded(addedNodes[j]);
+          for (var j = 0, len = removedNodes.length; j < len; j++)
+            disconnectIfNeeded(removedNodes[j]);
+        }
+      }
       function attributeChanged(changes) {
         for (var i = 0, length = changes.length; i < length; i++) {
           var change = changes[i];
