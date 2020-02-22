@@ -1,8 +1,8 @@
 /*! (c) Andrea Giammarchi - ISC */
 (function (document, customElements, Object) {'use strict';
+  var EXTENDS = 'extends';
   if (customElements.get('ungap-li') || typeof Reflect == typeof EXTENDS)
     return;
-  var EXTENDS = 'extends';
   try {
     // class LI extends HTMLLIElement {}
     var desc = {};
