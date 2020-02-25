@@ -1,6 +1,7 @@
 /*! (c) Andrea Giammarchi - ISC */
 (function (document, customElements, Object) {'use strict';
-  if (customElements.get('ungap-li') || typeof Reflect == typeof EXTENDS)
+  // trick of the year 🎉 https://twitter.com/WebReflection/status/1232269200317652992
+  if (document.importNode.length != 1 || customElements.get('ungap-li'))
     return;
   var EXTENDS = 'extends';
   try {
