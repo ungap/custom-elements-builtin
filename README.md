@@ -100,7 +100,7 @@ You cannot use the `constructor` in any meaningful way if you want to ensure API
 
 Create new elements via `document.createElement('button', {is: 'my-button'})` but **do not use** `new MyButton` or incompatible browsers will throw right away because they made `HTMLButtonElement` and all others not usable as classes.
 
-If you'd like to use `CustomELement.new()` instead of `new CustomElement()`, have a look at the [custom-elements-new](https://github.com/ungap/custom-elements-new#readme) utility.
+If you'd like to use `CustomElement.new()` instead of `new CustomElement()`, have a look at the [custom-elements-new](https://github.com/ungap/custom-elements-new#readme) utility.
 
 If you need a reliable entry point to setup your custom builtins use the `connectedCallback` method instead of the `constructor` so you're also sure all attributes are eventually already known and you'll have full control.
 
