@@ -2,8 +2,8 @@
   "name": "@ungap/custom-elements-builtin",
   "version": "0.4.0",
   "description": "A polyfill for Custom Elements builtin extends",
-  "main": "cjs/index.js",
-  "module": "esm/index.js",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
   "unpkg": "min.js",
   "scripts": {
     "babel": "babel --presets=@babel/preset-env test/my-button.js > test/es5/my-button.js",
@@ -14,7 +14,7 @@
     "size": "cat index.js | wc -c && cat min.js | wc -c && gzip -c9 min.js | wc -c && cat min.js | brotli | wc -c",
     "test": "npm run server & (sleep 1 && npm run nightmare && npm run kill)",
     "nightmare": "node test/nightmare.js || (npm run kill && exit 1)",
-    "server": "node -e 'require(`fs`).writeFileSync(`pid`,require(`child_process`).spawn(`http-server`,[`.`,`-s`]).pid);'",
+    "server": "node -e 'require(`fs`).writeFileSync(`pid`,require(`child_process`).spawn(`http-server`,[`.`,`-s`]).pid.toString());'",
     "kill": "kill -9 $(cat pid) && rm -f pid"
   },
   "keywords": [
@@ -27,11 +27,11 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
-    "http-server": "^0.12.1",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "http-server": "^0.12.3",
     "nightmare": "^3.0.2",
-    "uglify-js": "^3.8.0"
+    "uglify-js": "^3.9.1"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,10 @@
   "bugs": {
     "url": "https://github.com/ungap/custom-elements-builtin/issues"
   },
-  "homepage": "https://github.com/ungap/custom-elements-builtin#readme"
+  "homepage": "https://github.com/ungap/custom-elements-builtin#readme",
+  "type": "module",
+  "exports": {
+    "import": "./esm/index.js",
+    "default": "./cjs/index.js"
+  }
 }
