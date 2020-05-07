@@ -113,7 +113,7 @@
             set: function (HTML) {
               innerHTML.set.call(this, HTML);
               if (/\bis=("|')?[a-z0-9_-]+\1/i.test(HTML))
-                setupSubNodes(this.content || this, setupIfNeeded);
+                setupSubNodes(this, setupIfNeeded);
             }
           }
         }
@@ -217,8 +217,11 @@
         setupSubNodes(node, setupIfNeeded);
       }
       function setupSubNodes(node, setup) {
-        var nodes = node.querySelectorAll('[is]');
-        for (var i = 0, length = nodes.length; i < length; i++)
+        for (var
+          t = node.content,
+          nodes = (t && t.nodeType == 11 ? t : node).querySelectorAll('[is]'),
+          i = 0, length = nodes.length; i < length; i++
+        )
           setup(nodes[i]);
       }
       function wrapOriginal(prototype, name) {
@@ -230,7 +233,7 @@
             switch (result.nodeType) {
               case 1:
               case 11:
-                setupSubNodes(result.content || result, setupIfNeeded);
+                setupSubNodes(result, setupIfNeeded);
             }
             return result;
           }
