@@ -40,7 +40,7 @@
       Reflect
         .ownKeys(self)
         .filter(function (k) {
-          return typeof k === 'string' && /^HTML(?!Element)/.test(k);
+          return typeof k == 'string' && /^HTML(?!Element)/.test(k);
         })
         .forEach(function (k) {
           function HTMLBuiltIn() {}
