@@ -44,11 +44,13 @@
         })
         .forEach(function (k) {
           function HTMLBuiltIn() {}
-          HTMLBuiltIn.prototype = self[k].prototype;
-          setPrototypeOf(HTMLBuiltIn, self[k]);
-          var descriptors = {};
-          descriptors[k] = {value: HTMLBuiltIn};
-          defineProperties(self, descriptors);
+          var tmp = self[k];
+          HTMLBuiltIn.prototype = tmp.prototype;
+          setPrototypeOf(HTMLBuiltIn, tmp);
+          defineProperties(tmp, {constructor: {value: HTMLBuiltIn}});
+          tmp = {};
+          tmp[k] = {value: HTMLBuiltIn};
+          defineProperties(self, tmp);
         });
 
       new MutationObserver(DOMChanges).observe(document, changesOptions);
