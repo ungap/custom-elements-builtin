@@ -45,9 +45,8 @@
         .forEach(function (k) {
           function HTMLBuiltIn() {}
           var tmp = self[k];
-          HTMLBuiltIn.prototype = tmp.prototype;
           setPrototypeOf(HTMLBuiltIn, tmp);
-          defineProperties(tmp, {constructor: {value: HTMLBuiltIn}});
+          (HTMLBuiltIn.prototype = tmp.prototype).constructor = HTMLBuiltIn;
           tmp = {};
           tmp[k] = {value: HTMLBuiltIn};
           defineProperties(self, tmp);
