@@ -34,6 +34,23 @@
       var registry = create(null);
       var lifeCycle = new WeakMap;
       var changesOptions = {childList: true, subtree: true};
+
+      // Safari TP decided at some point that it was OK to break the Web
+      // https://github.com/ungap/custom-elements-builtin/issues/25
+      Reflect
+        .ownKeys(self)
+        .filter(function (k) {
+          return typeof k === 'string' && /^HTML(?!Element)/.test(k);
+        })
+        .forEach(function (k) {
+          function HTMLBuiltIn() {}
+          HTMLBuiltIn.prototype = self[k].prototype;
+          setPrototypeOf(HTMLBuiltIn, self[k]);
+          var descriptors = {};
+          descriptors[k] = {value: HTMLBuiltIn};
+          defineProperties(self, descriptors);
+        });
+
       new MutationObserver(DOMChanges).observe(document, changesOptions);
       wrapOriginal(Document.prototype, 'importNode');
       wrapOriginal(Node.prototype, 'cloneNode');
