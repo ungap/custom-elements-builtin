@@ -2,6 +2,21 @@
 
 [![Build Status](https://travis-ci.com/ungap/custom-elements-builtin.svg?branch=master)](https://travis-ci.com/ungap/custom-elements-builtin) [![Greenkeeper badge](https://badges.greenkeeper.io/ungap/custom-elements-builtin.svg)](https://greenkeeper.io/) ![WebReflection status](https://offline.report/status/webreflection.svg)
 
+### Announcement
+
+Please help me out testing [the future version of this polyfill](https://github.com/WebReflection/custom-elements-builtin#readme), as example by simply using `@webreflection` instead of `@ungap` in case you are getting this polyfill from some CDN.
+
+**New Features**
+
+  * no [constructor caveats](https://github.com/ungap/custom-elements-builtin#constructor-caveat), everything works like in Chrome or Firefox
+  * better performance, only defined builtin gets observed, thanks to [qsa-observer](https://github.com/WebReflection/qsa-observer#readme)
+  * better memory handling: no leaks, and less operations
+  * better ShadowDOM integration: builtin extends are observed within ShadowDOM nodes, either opened or closed
+
+Thanks in advance for making Custom Elements with Builtin Extends available to everyone ♥
+
+- - -
+
 Brings builtin extends to browsers that already have `customElements` (i.e. Safari).
 
 See [document-register-element](https://github.com/WebReflection/document-register-element) to polyfill upfront all other legacy browsers too.
