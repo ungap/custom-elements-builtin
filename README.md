@@ -2,6 +2,12 @@
 
 [![Build Status](https://travis-ci.com/ungap/custom-elements-builtin.svg?branch=master)](https://travis-ci.com/ungap/custom-elements-builtin) [![Greenkeeper badge](https://badges.greenkeeper.io/ungap/custom-elements-builtin.svg)](https://greenkeeper.io/) ![WebReflection status](https://offline.report/status/webreflection.svg)
 
+## Deprecated
+
+This module is no longer maintained. Use [@ungap/custom-elements](https://www.npmjs.com/package/@ungap/custom-elements) instead.
+
+- - -
+
 ### Announcement
 
 Please help me out testing [the future version of this polyfill](https://github.com/WebReflection/custom-elements-builtin#readme), as example by simply using `@webreflection` instead of `@ungap` in case you are getting this polyfill from some CDN.
