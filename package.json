@@ -1,6 +1,6 @@
 {
   "name": "@ungap/custom-elements-builtin",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "A polyfill for Custom Elements builtin extends",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
