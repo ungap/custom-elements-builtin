@@ -26,12 +26,12 @@
   "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.10.3",
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
     "http-server": "^0.12.3",
     "nightmare": "^3.0.2",
-    "uglify-js": "^3.10.0"
+    "uglify-js": "^3.13.5"
   },
   "repository": {
     "type": "git",
